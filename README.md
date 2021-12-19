@@ -46,7 +46,7 @@ npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
 For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
 
 # Work flow
-> Feature contains: connect metamask, getbalance (native and erc20 token), transfer (native and erc20 token)
+Feature contains: connect metamask, getbalance (native and erc20 token), transfer (native and erc20 token)
 > 
 > Install module
 > - `npm i or npm install`

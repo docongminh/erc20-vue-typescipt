@@ -1,8 +1,10 @@
 <template>
   <div id="app">
-    <div id="metamask" v-if="status === true">Metamask Connection: 🟢</div>
+    <div id="metamask" v-if="status">Metamask Connection: 🟢</div>
     <div id="metamask" v-else>Metamask Connection: 🔴</div>
-    <div>Wallet account: {{ $store.state.walletAccount }}</div>
+    <div>
+      Wallet: <span id="wallet">{{ $store.state.walletAccount }} </span>
+    </div>
     <div id="nav">
       <router-link to="/">Native Token</router-link> |
       <router-link to="/erc20">ERC20 Token</router-link>
@@ -64,6 +66,11 @@ export default class MetamaskConnection extends Vue {
 #metamask {
   color: #2c3e50;
 }
+
+#wallet {
+  font-weight: bold;
+}
+
 #nav {
   padding: 30px;
 }

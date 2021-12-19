@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {ethers} from "ethers";
+import { ethers } from "ethers";
 
 Vue.use(Vuex);
 

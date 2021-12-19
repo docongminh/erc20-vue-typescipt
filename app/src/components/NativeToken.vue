@@ -46,14 +46,13 @@ export default class NativeToken extends Vue {
     const nativebalance = await this.$store.state.provider.getBalance(
       this.addrBalance
     );
-    // toast.success(`native balance: ${ethers.utils.formatEther(nativebalance)}`);
+    alert(`native balance: ${ethers.utils.formatEther(nativebalance)}`);
     console.log(`native balance: ${ethers.utils.formatEther(nativebalance)}`);
   }
   //
   sendNativeToken(): void {
     // send a transaction to the token contract
     const signer = this.$store.state.provider.getSigner();
-    // const _amount = parseFloat(this.amount);
     const tx = {
       to: this.addrTransfer,
       value: ethers.utils.parseEther(this.amount),
@@ -66,7 +65,7 @@ export default class NativeToken extends Vue {
         this.$store.state.provider
           .getBalance(this.$store.state.walletAccount)
           .then((balance: any) => {
-            // toast.success(`Balance after: ${ethers.utils.formatEther(balance)}`);
+            alert(`Balance after: ${ethers.utils.formatEther(balance)}`);
             console.log(`Balance after: ${ethers.utils.formatEther(balance)}`);
           });
       })

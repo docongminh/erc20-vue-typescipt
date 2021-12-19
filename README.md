@@ -48,14 +48,22 @@ For faster runs of your tests and scripts, consider skipping ts-node's type chec
 # Work flow
 Feature contains: connect metamask, getbalance (native and erc20 token), transfer (native and erc20 token)
 > 
-> Install module
-> - `npm i or npm install`
+- Install module
+```shell
+npm install
+```
 > 
-> Starting Hardhat node
-> - `npx hardhat node`
+- Starting Hardhat node
+```shell
+npx hardhat node
+```
 > 
-> Deploy Smart contract on hardhat localhost and hold smart contract address for create instant
-> - `npx hardhat run scripts/deploy.ts --network localhost`
+- Deploy Smart contract on hardhat localhost and hold smart contract address for create instant
+```shell 
+npx hardhat run scripts/deploy.ts --network localhost
+```
 > 
-> Start Vue serve
-> - `cd app && npm start serve`
+- Start Vue serve
+```shell
+cd app && npm start serve
+```

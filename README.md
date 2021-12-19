@@ -44,3 +44,26 @@ npx hardhat verify --network ropsten DEPLOYED_CONTRACT_ADDRESS "Hello, Hardhat!"
 # Performance optimizations
 
 For faster runs of your tests and scripts, consider skipping ts-node's type checking by setting the environment variable `TS_NODE_TRANSPILE_ONLY` to `1` in hardhat's environment. For more details see [the documentation](https://hardhat.org/guides/typescript.html#performance-optimizations).
+
+# Work flow
+Feature contains: connect metamask, getbalance (native and erc20 token), transfer (native and erc20 token)
+> 
+- Install module
+```shell
+npm install
+```
+> 
+- Starting Hardhat node
+```shell
+npx hardhat node
+```
+> 
+- Deploy Smart contract on hardhat localhost and hold smart contract address for create instant
+```shell 
+npx hardhat run scripts/deploy.ts --network localhost
+```
+> 
+- Start Vue serve
+```shell
+cd app && npm start serve
+```

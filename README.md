@@ -54,7 +54,7 @@ Feature contains: connect metamask, getbalance (native and erc20 token), transfe
 > Starting Hardhat node
 > - `npx hardhat node`
 > 
-> Deploy Smart contract on hardhat localhost
+> Deploy Smart contract on hardhat localhost and hold smart contract address for create instant
 > - `npx hardhat run scripts/deploy.ts --network localhost`
 > 
 > Start Vue serve

@@ -6,9 +6,9 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    provider: ethers.providers.JsonRpcProvider,
-    contract: ethers.Contract,
-    walletAccount: "",
+    provider: null,
+    contract: null,
+    walletAccount: null,
   },
   mutations: {},
   actions: {},

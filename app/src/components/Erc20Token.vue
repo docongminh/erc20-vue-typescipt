@@ -56,35 +56,35 @@ export default class Erc20Token extends Vue {
   private addrCheck = "";
   private amount = "";
   private transferTo = "";
-  // private provider = this.$store.state.provider;
-  private provider = new ethers.providers.Web3Provider(window.ethereum);
+
   // get balance of the token contract
   async checkBalance(): Promise<void> {
-    console.log(`address: ${this.addrCheck}`)
-    const contract = new ethers.Contract(
-      this.contractAddress,
-      Token.abi,
-      this.provider
-    );
-    const balance = await contract.balanceOf(this.addrCheck);
-    console.log(`balance: ${utils.formatUnits(balance.toString())}`);
+    if (ethers.utils.isAddress(this.addrCheck)) {
+      const balance = await this.$store.state.contract.balanceOf(
+        this.addrCheck
+      );
+      console.log(`balance: ${utils.formatUnits(balance.toString())}`);
+    } else {
+      alert("[ERROR] Address to get balance is empty !");
+    }
   }
   async newContractInstant(): Promise<void> {
-    console.log(` provider: ${this.provider}`);
-    console.log(`Contract address: ${this.contractAddress}`);
-    try {
+    if (
+      this.$store.state.provider !== null &&
+      ethers.utils.isAddress(this.contractAddress)
+    ) {
       const iContract = new ethers.Contract(
         this.contractAddress,
         Token.abi,
-        this.provider
+        this.$store.state.provider
       );
       console.log(iContract);
       //
       this.$store.state.contract = iContract;
-      const symbol = await iContract.symbol();
-      const name = await iContract.name();
-      const decimal = await iContract.decimals();
-      const balance = await iContract.balanceOf(
+      const symbol = await this.$store.state.contract.symbol();
+      const name = await this.$store.state.contract.name();
+      const decimal = await this.$store.state.contract.decimals();
+      const balance = await this.$store.state.contract.balanceOf(
         this.$store.state.walletAccount
       );
       console.log(
@@ -92,28 +92,35 @@ export default class Erc20Token extends Vue {
           balance.toString()
         )}`
       );
-    } catch (error) {
-      console.error(error);
+    } else {
+      alert(`[ERROR] Provider is null or wrong format contract address`);
     }
   }
 
   // send a transaction to the token contract
   async sendToken(): Promise<void> {
-    const signer = this.provider.getSigner();
-    const contract = new ethers.Contract(
-      this.contractAddress,
-      Token.abi,
-      signer
-    );
-    const transaction = await contract.transfer(
-      this.transferTo,
-      utils.parseUnits(this.amount)
-    );
-    // Wait for the transaction to be mined...
-    const transaction_info = await transaction.wait();
-    alert(`[Success] Transaction Hash: ${transaction_info.blockHash}`);
-    const balance = await contract.balanceOf(this.$store.state.walletAccount);
-    console.log(`balance: ${utils.formatUnits(balance.toString())}`);
+    if (
+      this.$store.state.provider !== null &&
+      ethers.utils.isAddress(this.transferTo)
+    ) {
+      const signer = this.$store.state.provider.getSigner();
+      const contract = new ethers.Contract(
+        this.contractAddress,
+        Token.abi,
+        signer
+      );
+      const transaction = await contract.transfer(
+        this.transferTo,
+        utils.parseUnits(this.amount)
+      );
+      // Wait for the transaction to be mined...
+      const transaction_info = await transaction.wait();
+      alert(`[Success] Transaction Hash: ${transaction_info.blockHash}`);
+      const balance = await contract.balanceOf(this.$store.state.walletAccount);
+      console.log(`balance: ${utils.formatUnits(balance.toString())}`);
+    } else {
+      alert("[ERROR] provider is null or wrong address format");
+    }
   }
 }
 </script>

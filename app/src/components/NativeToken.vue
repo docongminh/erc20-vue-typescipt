@@ -43,36 +43,45 @@ export default class NativeToken extends Vue {
   private amount = "";
 
   async getBalance(): Promise<void> {
-    const nativebalance = await this.$store.state.provider.getBalance(
-      this.addrBalance
-    );
-    alert(`native balance: ${ethers.utils.formatEther(nativebalance)}`);
-    console.log(`native balance: ${ethers.utils.formatEther(nativebalance)}`);
+    if (ethers.utils.isAddress(this.addrBalance)) {
+      const nativebalance = await this.$store.state.provider.getBalance(
+        this.addrBalance
+      );
+      alert(`native balance: ${ethers.utils.formatEther(nativebalance)}`);
+      console.log(`native balance: ${ethers.utils.formatEther(nativebalance)}`);
+    }
   }
   //
   sendNativeToken(): void {
-    // send a transaction to the token contract
-    const signer = this.$store.state.provider.getSigner();
-    const tx = {
-      to: this.addrTransfer,
-      value: ethers.utils.parseEther(this.amount),
-    };
-    console.log(tx);
-    signer
-      .sendTransaction(tx)
-      .then((result: any) => {
-        alert(`Transaction hash: ${result.hash}`);
-        this.$store.state.provider
-          .getBalance(this.$store.state.walletAccount)
-          .then((balance: any) => {
-            alert(`Balance after: ${ethers.utils.formatEther(balance)}`);
-            console.log(`Balance after: ${ethers.utils.formatEther(balance)}`);
-          });
-      })
-      .catch((error: any) => {
-        console.error(`Fail Send Token ${error}`);
-        // If the request fails, the Promise will reject with an error.
-      });
+    if (
+      this.$store.state.provider !== null &&
+      ethers.utils.isAddress(this.addrTransfer)
+    ) {
+      // send a transaction to the token contract
+      const signer = this.$store.state.provider.getSigner();
+      const tx = {
+        to: this.addrTransfer,
+        value: ethers.utils.parseEther(this.amount),
+      };
+      console.log(tx);
+      signer
+        .sendTransaction(tx)
+        .then((result: any) => {
+          alert(`Transaction hash: ${result.hash}`);
+          this.$store.state.provider
+            .getBalance(this.$store.state.walletAccount)
+            .then((balance: any) => {
+              alert(`Balance after: ${ethers.utils.formatEther(balance)}`);
+              console.log(
+                `Balance after: ${ethers.utils.formatEther(balance)}`
+              );
+            });
+        })
+        .catch((error: any) => {
+          console.error(`Fail Send Token ${error}`);
+          // If the request fails, the Promise will reject with an error.
+        });
+    }
   }
 }
 </script>

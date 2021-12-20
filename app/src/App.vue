@@ -28,7 +28,7 @@ export default class MetamaskConnection extends Vue {
   @Prop() private msg!: string;
   private status = false;
   // request access to the user's MetaMask account
-  beforeCreate(): void {
+  mounted(): void {
     if (window.ethereum?.request) {
       // connect to metamask
       window.ethereum
@@ -39,9 +39,8 @@ export default class MetamaskConnection extends Vue {
           );
           this.status = true;
           this.$store.state.walletAccount = result[0];
-          // toast.success("Connected Metamask");
         })
-        .catch((error: any) => {
+        .catch((error: any): void => {
           console.error(error);
           alert("Please install MetaMask browser extension");
         });

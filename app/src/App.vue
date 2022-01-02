@@ -1,9 +1,14 @@
 <template>
   <div id="app">
-    <div id="metamask" v-if="status">Metamask Connection: 🟢</div>
-    <div id="metamask" v-else>Metamask Connection: 🔴</div>
+    <div id="language">
+      <button v-for="entry in languages" :key="entry.title" @click="changeLocale(entry.language)">
+        {{entry.title}}
+      </button>
+    </div>  
+    <div id="metamask" v-if="status">{{$t('connect')}}: 🟢</div>
+    <div id="metamask" v-else>{{$t('connect')}}: 🔴</div>
     <div>
-      Wallet: <span id="wallet">{{ $store.state.walletAccount }} </span>
+      {{$t('wallet')}}: <span id="wallet">{{ $store.state.walletAccount }} </span>
     </div>
     <div id="nav">
       <router-link to="/">Native Token</router-link> |
@@ -16,6 +21,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { ethers, utils } from "ethers";
+import i18n from "./plugin/i18n";
 
 declare global {
   export interface Window {
@@ -27,6 +33,13 @@ declare global {
 export default class MetamaskConnection extends Vue {
   @Prop() private msg!: string;
   private status = false;
+  private languages = [
+        { flag: 'us', language: 'en', title: 'English' },
+        { flag: 'vi', language: 'vi', title: 'Tiếng Việt' }
+      ]
+  changeLocale(locale: string): void {
+      i18n.locale = locale;
+  }
   // request access to the user's MetaMask account
   mounted(): void {
     if (window.ethereum?.request) {
@@ -64,6 +77,13 @@ export default class MetamaskConnection extends Vue {
 
 #metamask {
   color: #2c3e50;
+}
+
+#language button {
+  padding: 10px;
+  border: 1px solid green;
+  font-size: 15px;
+  margin: 15px;
 }
 
 #wallet {

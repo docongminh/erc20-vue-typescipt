@@ -4,7 +4,7 @@
       className="lg:flex md:flex text-xl justify-center items-center mx-auto border-orange-500 max-w-2xl py-4 px-4"
     >
       <div className="font-semibold p-2">
-        <span className="text-gray-800">Transfer ETH</span>
+        <span className="text-gray-800">{{ $t('transfertToken')}}</span>
       </div>
     </div>
 
@@ -18,14 +18,14 @@
         type="button"
         @click="sendNativeToken"
       >
-        Send token
+        {{$t('send')}}
       </button>
 
       <hr className="mt-4" />
 
       <input type="text" required v-model="addrBalance" placeholder="Address" />
       <button className="btn btn-green mt-1" type="button" @click="getBalance">
-        Balance
+        {{$t('balance')}}
       </button>
     </div>
   </div>

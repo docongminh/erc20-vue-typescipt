@@ -4,7 +4,7 @@
       className="lg:flex md:flex text-xl justify-center items-center mx-auto border-orange-500 max-w-2xl py-4 px-4"
     >
       <div className="font-semibold p-2">
-        <span className="text-gray-800">Transfer Token</span>
+        <span className="text-gray-800">{{ $t('transfertToken')}}</span>
       </div>
     </div>
     <div
@@ -21,7 +21,7 @@
         type="button"
         @click="newContractInstant"
       >
-        New Contract
+        {{$t('contract')}}
       </button>
 
       <hr className="mt-4" />
@@ -29,7 +29,7 @@
       <input type="text" required placeholder="To" v-model="transferTo" />
       <input type="text" required placeholder="amount" v-model="amount" />
       <button className="btn btn-green mt-1" type="button" @click="sendToken">
-        Send token
+        {{$t('send')}}
       </button>
       <hr className="mt-4" />
       <input type="text" required placeholder="Address" v-model="addrCheck" />
@@ -38,7 +38,7 @@
         type="button"
         @click="checkBalance"
       >
-        Get Balance
+        {{$t('balance')}}
       </button>
     </div>
   </div>
@@ -56,7 +56,6 @@ export default class Erc20Token extends Vue {
   private addrCheck = "";
   private amount = "";
   private transferTo = "";
-
   // get balance of the token contract
   async checkBalance(): Promise<void> {
     if (ethers.utils.isAddress(this.addrCheck)) {

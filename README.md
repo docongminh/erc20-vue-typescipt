@@ -67,3 +67,7 @@ npx hardhat run scripts/deploy.ts --network localhost
 ```shell
 cd app && npm start serve
 ```
+
+# Add on
+- [react-typescript version](https://github.com/docongminh/erc20-Token)
+- *inprogress [chrome extension](https://github.com/docongminh/crypto-wallet-extension)
